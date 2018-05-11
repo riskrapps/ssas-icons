@@ -93,6 +93,8 @@ function addIconCss($name, $offset)
 foreach ($icons as $i => $icon) {
     $file = $iconsDir . $icon . '.png';
     $img = imagecreatefrompng($file);
+    imagealphablending($img, false);
+    imagesavealpha($img, true);
 
     $offset = $i * $iconHeight;
     imagecopy($canvas, $img, 0, $offset, 0, 0, $iconWidth, $iconHeight);
