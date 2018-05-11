@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SSAS Icons</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./dist/iconset.css">
+    
+</head>
+<body>
+    <br>
+    <div class="container" id="icons">
+        <h2>SSAS ICONS</h2> 
+        <hr>
+        <div class="checkbox">
+            <label>
+            <input type="checkbox" v-model="mini" />
+            Show "mini" versions
+            </label>
+        </div>
+        <br>
+        <div class="row">
+            <div v-for="icon in icons" class="col-sm-1 text-center">
+                <div class="ssas" :class="[icon, mini ? 'mini' : null]"></div>
+                <br>
+                <div style="line-height:12px;color:#666;margin-bottom:16px;"><small>{{ icon }}</small></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="./icons.js"></script>
+    <script>
+        new Vue({el: '#icons', data: {icons: icons, mini: false}})
+    </script>
+</body>
+</html>
