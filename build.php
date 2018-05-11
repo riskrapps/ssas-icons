@@ -52,6 +52,9 @@ $canvas = imagecreatetruecolor(
     $iconHeight * count($icons)
 );
 
+imagealphablending($canvas, false);
+imagesavealpha($canvas, true);
+
 $css = '';
 
 function addBackgroundRule($image)
@@ -95,8 +98,6 @@ foreach ($icons as $i => $icon) {
     imagecopy($canvas, $img, 0, $offset, 0, 0, $iconWidth, $iconHeight);
     addIconCss($icon, $offset);
 }
-
-imagesavealpha($canvas, true);
 
 ob_start();
 imagepng($canvas);
