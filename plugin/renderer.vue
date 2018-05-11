@@ -1,6 +1,6 @@
 <template>
     <div :style="{textAlign: state.align ? state.align : 'center' }">
-        <div class="ssa-icons" :class="[state.mini ? 'mini' : null, icon]"></div>
+        <div class="ssas" :class="[state.mini ? 'mini' : null, icon]"></div>
     </div>
 </template>
 <script>

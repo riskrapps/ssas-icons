@@ -1,4 +1,4 @@
-import '../dist/iconset.css'
+require('../dist/iconset.css')
 
 module.exports = {
     // Any name you choose is fine, just make it unique
