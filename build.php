@@ -1,6 +1,8 @@
 <?php
 
 $icons = [
+    'positive', 'negative',
+    'male', 'female', 'disabled',
     'water-handwash', 'water-drinking',
     'empty-triangle', 'question-mark',
     'rural', 'semi-urban', 'urban', 'remote',
