@@ -35,7 +35,7 @@ class Iconset
         $offset = $this->index * $this->config->iconHeight;
 
         imagecopy($this->canvas, $image, 0, $offset, 0, 0, $this->config->iconWidth, $this->config->iconHeight);
-        $this->css->addIcon($icon, 0);
+        $this->css->addIcon($icon, $offset);
         $this->index++;
     }
 
@@ -52,5 +52,10 @@ class Iconset
     {
         $this->css->addBackground($this->toBase64());
         return $this->css->output();
+    }
+
+    public function toPng($file)
+    {
+        imagepng($this->canvas, $file);
     }
 }

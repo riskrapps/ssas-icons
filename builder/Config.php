@@ -13,6 +13,6 @@ class Config
     public function __construct($numberOfIcons)
     {
         $this->iconsetWidth = $this->iconWidth;
-        $this->iconsetHeight = count($numberOfIcons) * $this->iconHeight;
+        $this->iconsetHeight = $numberOfIcons * $this->iconHeight;
     }
 }

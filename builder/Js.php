@@ -5,6 +5,7 @@ function jsOutput($categorizedIcons, $count)
     $data = [
         'icons' => [],
         'count' => $count,
+        'date' => date('d.m.Y H:i'),
     ];
 
     foreach ($categorizedIcons as $category => $icons) {

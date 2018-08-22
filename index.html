@@ -44,7 +44,18 @@
                 </div>
             </div>
         </div>
-        <p style="color:#666;font-size:12px">This iconset has a total of {{ count }} icons.</p>
+        <hr>
+        <div class="small">
+            <div class="float-right">
+                <a href="https://github.com/swiftmade/ssas-icons">Github</a>
+            </div>
+            <div>
+            This iconset has a total of {{ count }} icons. Last updated on {{ date }}.
+            </div>
+            <div class="clearfix"></div>
+            <br>
+            <br>
+        </div>
 
     </div>
 
@@ -55,6 +66,7 @@
             el: '#icons',
             data: {
                 filter: '',
+                date: data.date,
                 filtered: data.icons,
                 categories: data.icons,
                 count: data.count,

@@ -23,5 +23,8 @@ foreach ($allIcons as $file) {
     $iconset->addIcon(new Icon($file));
 }
 
+// Enable this line to test the png output
+// $iconset->toPng('output.png');
+
 file_put_contents('dist/iconset.css', $iconset->toCss());
 file_put_contents('icons.js', jsOutput($categorizedIcons, $iconsCount));
