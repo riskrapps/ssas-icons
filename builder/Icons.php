@@ -2,17 +2,60 @@
 
 function getIconList()
 {
-    $iconDir = BASEDIR . '/icons';
-    $files = scandir($iconDir);
+    return IconsRepository::all();
+}
 
-    $files = array_filter($files, function ($file) {
-        return strpos($file, '.png') > 0;
-    });
+class IconsRepository
+{
+    // Skip unwanted directories or file names
+    private $skip = [
+        '.',
+        '..',
+    ];
 
-    $icons = array_map(function ($file) {
-        return substr($file, 0, strlen($file) - 4);
-    }, $files);
+    public static function all()
+    {
+        return (new self)->get();
+    }
 
-    sort($icons);
-    return $icons;
+    public function get()
+    {
+        return $this->extractIconsFromFolder(BASEDIR . '/icons');
+    }
+
+    private function getPath(array $components)
+    {
+        $components = array_filter($components, function ($component) {
+            return !empty($component);
+        });
+        return implode('/', $components);
+    }
+
+    private function shouldSkip($filename)
+    {
+        return in_array($filename, $this->skip);
+    }
+
+    private function extractIconsFromFolder($folder)
+    {
+        $icons = [];
+        $skip = ['.', '..'];
+        $searchPath = $this->getPath([$folder]);
+
+        foreach (scandir($searchPath) as $file) {
+            //
+            if ($this->shouldSkip($file)) {
+                continue;
+            }
+
+            $path = $this->getPath([$searchPath, $file]);
+
+            if (is_dir($path)) {
+                $icons[$file] = $this->extractIconsFromFolder($folder . '/' . $file);
+            } elseif (strpos($file, '.png') > 0) {
+                $icons[] = $path;
+            }
+        }
+        return $icons;
+    }
 }

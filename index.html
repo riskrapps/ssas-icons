@@ -13,28 +13,80 @@
     <br>
     <div class="container" id="icons">
         <h2>SSAS ICONS</h2> 
-        <hr>
-        <div class="checkbox">
-            <label>
-            <input type="checkbox" v-model="mini" />
-            Show "mini" versions
-            </label>
-        </div>
         <br>
         <div class="row">
-            <div v-for="icon in icons" class="col-sm-1 text-center">
-                <div class="ssas" :class="[icon, mini ? 'mini' : null]"></div>
-                <br>
-                <div style="line-height:12px;color:#666;margin-bottom:16px;"><small>{{ icon }}</small></div>
+            <div class="col-md-8">
+                <div class="checkbox mt-1">
+                    <label>
+                        <input type="checkbox" v-model="mini" /> Show "mini" versions
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <div class="input-group">
+                    <input class="form-control" v-model="filter" @input="refilter()" placeholder="Filter icons..." />
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" @click="clearFilter()">x</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <p style="color:#666;font-size:12px">Displaying a total of {{ icons.length }} icons.</p>
+        <hr>
+        
+        <div class="flex-row d-flex flex-wrap justify-content-sm-between">
+            <div v-for="(icons, category) in filtered" :key="category" class="mt-3">
+                <h5>{{ category }}</h5>
+<div class="flex-row d-flex flex-wrap justify-content-start border-top text-center p-3 mt-1" style="border-color:#eee !important;">
+                    <div v-for="icon in icons" :key="icon" class="mx-2" style="width:80px">
+                        <div class="ssas" :class="[icon, mini ? 'mini' : null]"></div> <br>
+                        <div style="line-height:12px;color:#666;margin-bottom:16px;"><small>{{ icon }}</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style="color:#666;font-size:12px">This iconset has a total of {{ count }} icons.</p>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="./icons.js"></script>
     <script>
-        new Vue({el: '#icons', data: {icons: icons, mini: false}})
+        new Vue({
+            el: '#icons',
+            data: {
+                filter: '',
+                filtered: data.icons,
+                categories: data.icons,
+                count: data.count,
+                mini: false,
+            },
+            methods: {
+
+                clearFilter: function() {
+                    this.filter = '';
+                    this.refilter();
+                },
+
+                refilter: function() {
+                    if (!this.filter) {
+                        this.filtered = this.categories;
+                        return;
+                    }
+                    
+                    var _this = this
+
+                    this.filtered = Object.keys(this.categories).reduce(function(all, category) {
+                        var icons = _this.categories[category].filter(function(icon) {
+                            return icon.indexOf(_this.filter) >= 0;
+                        })
+                        if (icons.length) {
+                            all[category] = icons;
+                        }
+                        return all;
+                    }, {});
+                },
+            }
+        })
     </script>
 </body>
 </html>

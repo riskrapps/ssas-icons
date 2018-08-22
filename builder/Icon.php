@@ -5,10 +5,10 @@ class Icon
     private $name;
     private $file;
 
-    public function __construct($name)
+    public function __construct($file)
     {
-        $this->name = $name;
-        $this->file = BASEDIR . '/icons/' . $name . '.png';
+        $this->file = $file;
+        $this->name = basename($file, '.png');
     }
 
     public function name()
@@ -32,6 +32,8 @@ class Icon
         imagesavealpha($target, true);
 
         imagecopyresampled($target, $source, 0, 0, 0, 0, $targetWidth, $targetHeight, $width, $height);
+        imagedestroy($source);
+
         return $target;
     }
 }

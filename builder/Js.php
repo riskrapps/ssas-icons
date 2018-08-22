@@ -1,8 +1,19 @@
 <?php
 
-function jsOutput($icons)
+function jsOutput($categorizedIcons, $count)
 {
-    return 'var icons = ' . json_encode($icons) . ';
+    $data = [
+        'icons' => [],
+        'count' => $count,
+    ];
+
+    foreach ($categorizedIcons as $category => $icons) {
+        $data['icons'][$category] = array_map(function ($icon) {
+            return basename($icon, '.png');
+        }, $icons);
+    }
+
+    return 'var data = ' . json_encode($data) . ';
 // AMD support
 if (typeof define === \'function\' && define.amd) {
     define(function () { return icons; });

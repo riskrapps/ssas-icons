@@ -8,14 +8,20 @@ require './builder/Icon.php';
 require './builder/Icons.php';
 require './builder/Config.php';
 require './builder/Iconset.php';
+require './builder/Helpers.php';
 
-$icons = getIconList();
-$config = new Config($icons);
-$iconset = new Iconset($config);
+$categorizedIcons = getIconList();
+$allIcons = array_flatten($categorizedIcons);
 
-foreach ($icons as $iconName) {
-    $iconset->addIcon(new Icon($iconName));
+$iconsCount = count($allIcons);
+
+$iconset = new Iconset(
+    new Config($iconsCount)
+);
+
+foreach ($allIcons as $file) {
+    $iconset->addIcon(new Icon($file));
 }
 
 file_put_contents('dist/iconset.css', $iconset->toCss());
-file_put_contents('icons.js', jsOutput($icons));
+file_put_contents('icons.js', jsOutput($categorizedIcons, $iconsCount));

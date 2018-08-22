@@ -31,10 +31,11 @@ class Iconset
             $this->config->iconWidth,
             $this->config->iconHeight
         );
+
         $offset = $this->index * $this->config->iconHeight;
 
         imagecopy($this->canvas, $image, 0, $offset, 0, 0, $this->config->iconWidth, $this->config->iconHeight);
-        $this->css->addIcon($icon, $offset);
+        $this->css->addIcon($icon, 0);
         $this->index++;
     }
 

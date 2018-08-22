@@ -10,9 +10,9 @@ class Config
     public $iconsetWidth;
     public $iconsetHeight;
 
-    public function __construct(array $icons)
+    public function __construct($numberOfIcons)
     {
         $this->iconsetWidth = $this->iconWidth;
-        $this->iconsetHeight = count($icons) * $this->iconHeight;
+        $this->iconsetHeight = count($numberOfIcons) * $this->iconHeight;
     }
 }
