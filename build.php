@@ -27,4 +27,7 @@ foreach ($allIcons as $file) {
 // $iconset->toPng('output.png');
 
 file_put_contents('dist/iconset.css', $iconset->toCss());
-file_put_contents('icons.js', jsOutput($categorizedIcons, $iconsCount));
+file_put_contents('icons.js', jsOutput(
+    $categorizedIcons,
+    $iconsCount
+));

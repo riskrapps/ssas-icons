@@ -14,7 +14,8 @@ function jsOutput($categorizedIcons, $count)
         }, $icons);
     }
 
-    return 'var data = ' . json_encode($data) . ';
+    return 'var icons = ' . json_encode(array_flatten($data['icons'])) . ";\n"
+        . 'var data = ' . json_encode($data) . '
 // AMD support
 if (typeof define === \'function\' && define.amd) {
     define(function () { return icons; });
